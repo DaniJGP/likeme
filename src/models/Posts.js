@@ -16,9 +16,17 @@ const add = async (titulo, url, desc) => {
 };
 
 const like = async (id) => {
-    const query = 'UPDATE posts SET likes = likes + 1 WHERE id = $1 RETURNING *';
+    const query =
+        'UPDATE posts SET likes = likes + 1 WHERE id = $1 RETURNING *';
     const values = [id];
     const response = await DB.query(query, values);
+
+    if (response.rowCount === 0) {
+        const err = new Error();
+        err.code = 404
+        throw err;
+    }
+
     console.log(response.rowCount, response.command, response.rows[0]);
     return response.rows[0];
 };
@@ -27,6 +35,13 @@ const remove = async (id) => {
     const query = 'DELETE FROM posts WHERE id = $1 RETURNING *';
     const values = [id];
     const response = await DB.query(query, values);
+
+    if (response.rowCount === 0) {
+        const err = new Error();
+        err.code = 404
+        throw err;
+    }
+
     console.log(response.rowCount, response.command, response.rows[0]);
     return response.rows[0];
 };
