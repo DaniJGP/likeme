@@ -27,9 +27,14 @@ DB_PASSWORD=[your password]
 DB_DATABASE=likeme
 ```
 
+Finally, run the `npm install` command to install the required node modules.
+
 ## Running
 
-Run either 'npm run dev' or 'npm start' to start the server
+To start the server, run either:
+
+- `npm run dev` uses nodemon
+- `npm start` uses node
 
 ## Use
 
@@ -37,11 +42,11 @@ At the moment the following API Routes are available:
 
 `GET /posts`
 
-Returns an array of objects corresponding to the posts created
+Returns an array of objects corresponding to the posts created.
 
 `POST /posts`
 
-Adds a new post and expects a request body in the form of:
+Adds a new post, expecting a request body in the form of:
 
 ```js
 { 
@@ -50,3 +55,11 @@ Adds a new post and expects a request body in the form of:
     descripcion: "description"
 }
 ```
+
+`PUT /posts/like/<id>`
+
+Adds a like to the post with the given id.
+
+`DELETE /posts/<id>`
+
+Deletes the post with the given id.
